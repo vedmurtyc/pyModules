@@ -3,6 +3,7 @@
 # 2. Binary Search in a sorted list.
 # 3. Search for an element in a Binary tree
 # 4. Search for an element in a Graph
+import pdb
 
 def linearSearch(elements, value):
 	for i,e in enumerate(elements):
@@ -10,12 +11,17 @@ def linearSearch(elements, value):
 			return i
 	return -1
 
-def binarySearch(elements, value, start, end):
+def binarySearch(elements, value):
+	return _binarySearch(elements, value, 0, len(elements))
+
+def _binarySearch(elements, value, start, end):
+	if start > end:
+		return -1;
 	mid = (start + end )//2
 	if (value == elements[mid]):
 		return mid
-	elif(start < end):
-		binarySearch(elements[:mid], value, start, mid)
-		binarySearch(elements[mid+1:], value, mid+1, end)
+	elif(value < elements[mid]):
+		return _binarySearch(elements, value, start, mid - 1)
 	else:
-		return -1
+		return _binarySearch(elements, value, mid + 1, end)
+
